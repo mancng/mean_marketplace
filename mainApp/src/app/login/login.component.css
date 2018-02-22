@@ -1,0 +1,49 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#wrapper{
+    width: 760px;
+    padding: 20px;
+    margin-top: 30px;
+    border: 1px solid black;
+}
+
+#login{
+    width: 200px;
+    border: 1px solid black;
+    padding: 30px;
+    margin-top: 30px;
+    margin-left: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#register{
+    width: 380px;
+    border: 1px solid black;
+    padding: 20px;
+    margin-top: 30px;
+    margin-left: 30px;
+    display: inline-block;
+}
+
+#pw_con_txt, #pw_txt, #first_txt, #last_txt, #email_txt{
+    float: right;
+    /* margin: 8px; */
+}
+
+#login_btn{
+    width: 190px;
+    margin-top: 10px;
+}
+
+#submit_btn{
+    width: 380px;
+    margin-top: 10px;
+}
+
+#ptag{
+    color: red;
+}

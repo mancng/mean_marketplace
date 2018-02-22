@@ -1,0 +1,27 @@
+<div id="wrapper">
+  <div id="login">
+    <form (submit)="login()">
+      *Email: <input type="text" name="email" [(ngModel)]="user.email"><br>
+      <input id="login_btn" type="submit" value="Login">
+    </form>
+  </div>
+  <div id="register">
+    <form (submit) = "register()">
+      <label for="first">*First Name: </label>
+      <input id="first_txt" type="text" name="first" [(ngModel)]="newUser.first"><br>
+      <label for="last">*Last Name: </label>
+      <input id="last_txt" type="text" name="last" [(ngModel)]="newUser.last"><br>
+      <label for="email">*Email: </label>
+      <input id="email_txt" type="text" name="email" [(ngModel)]="newUser.email"><br>
+      <label for="password">*Password: </label>
+      <input id="pw_txt" type="text" name="password" [(ngModel)]="newUser.password"><br>
+      <label for="pass_con">*Password Confirmation: </label>
+      <input id="pw_con_txt" type="text" name="password_con" [(ngModel)]="con_pass"><br>
+      <input id="submit_btn" type="submit" value="Register">
+    </form>
+  </div>
+
+  <p id="ptag" *ngFor="let error of errorMessages">
+    {{error}}
+  </p>
+</div>
