@@ -1,3 +1,26 @@
-<p>
-  mylist works!
-</p>
+<a [routerLink]="['/browse']">Browse</a> |
+<a [routerLink]="['/listings']">My Listings</a> |
+<a [routerLink]="['/browse']">Log off</a> 
+
+<div id="wrapper">
+  <div id="search">
+    <form (submit)="searchListing()">
+        Search: <input id="search_txt" type="text" name="search" [(ngModel)]="search_string">
+        <input type="submit" value="Search">
+    </form>
+    <div id="listings">
+      <div id="promotion" >
+          <img id="image_div" src="" alt="">
+          <div id="middle">
+            <h1>Title</h1>
+            <p id="content_div">I'm selling this awesome Cannondale.</p>
+          </div>
+          <div id="right">
+            <h1>$950</h1>
+            <span>Los Angeles, CA</span>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</div>

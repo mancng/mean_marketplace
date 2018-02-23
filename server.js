@@ -81,6 +81,18 @@ app.post('/api/users', function(req, res){
     })
 })
 
+//Get All Listings
+app.get('/api/listings', function(req, res){
+    Listing.find({}, function(err, listings){
+        if(err){
+            console.log("Error from pulling listings", err);
+            res.json({messag: "Error", error: err});
+        } else {
+            res.json(listings);
+        }
+    })
+})
+
 //Get All Users
 app.get('/api/users', function(req, res){
     User.find({}, function(err, users){
@@ -108,10 +120,46 @@ app.get('/api/users/current', function(req, res){
     }
 })
 
+//Get Current User's Listings
+app.get('/api/users/current/listings', function(req,res){
+    User.find({})
+    .populate('listings')
+    .exec(function(err, listings){
+        res.json({AllData: listings})
+    })
+})
 
-
-
-
+//Add Listing to Current User
+app.post('/api/users/current/listings', function(req, res){
+    User.findOne({_id: req.session.userId}, function(err, user){
+        var listing = new Listing({
+            title: req.body.title,
+            description: req.body.description,
+            price: req.body.price,
+            location: req.body.location,
+            imageUrl: req.body.img_url
+        });
+    
+        listing._user = user._id;
+        user.listings.push(listing);
+        listing.save(function(err){
+            if(err){
+                console.log("Error adding listing")
+                res.json({message: "Error", error: err});
+            } else {
+                user.save(function(err){
+                    if(err){
+                        console.log("Error adding listing")
+                        res.json({message: "Error", error: err});
+                    } else {
+                        console.log(listing);
+                        res.json({message: "Success added"});
+                    }
+                })
+            }
+        })
+    })
+})
 
 
 

@@ -1,3 +1,24 @@
-<p>
-  create works!
-</p>
+<div id="wrapper" >
+  <form (submit)="createListing()">
+    <div id="image_div">
+      <span>Image URL</span><br>
+      <input id="img_url" type="text" name="img" [(ngModel)]="newListing.img_url">
+    </div>
+    <div id="middle">
+      <span>Title</span><br>
+      <input id="title_txt" type="text" name="title" [(ngModel)]="newListing.title"><br>
+      <span>Description</span><br>
+      <textarea id="description_txt" name="description" cols="43" rows="3" [(ngModel)]="newListing.description"></textarea>
+    </div>
+    <div id="right">
+      <span>Price</span><br>
+      <input id="price_txt" type="text" name="price" [(ngModel)]="newListing.price"><br>
+      <span>Location</span><br>
+      <input id="location_txt" type="text" name="location" [(ngModel)]="newListing.location"><br>
+    </div>
+    <input id="create_btn" type="submit" value="CREATE">
+  </form>
+  <p id="ptag" *ngFor="let error of errorMessages">
+    {{error}}
+  </p>
+</div>

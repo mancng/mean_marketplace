@@ -34,10 +34,12 @@ var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var browse_component_1 = __webpack_require__("../../../../../src/app/browse/browse.component.ts");
 var login_component_1 = __webpack_require__("../../../../../src/app/login/login.component.ts");
 var create_component_1 = __webpack_require__("../../../../../src/app/create/create.component.ts");
+var mylist_component_1 = __webpack_require__("../../../../../src/app/mylist/mylist.component.ts");
 var routes = [
     { path: '', component: login_component_1.LoginComponent },
     { path: 'create', component: create_component_1.CreateComponent },
     { path: 'browse', component: browse_component_1.BrowseComponent },
+    { path: 'listings', component: mylist_component_1.MylistComponent },
     { path: '', pathMatch: 'full', redirectTo: '' }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -174,7 +176,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "*{\n    padding: 0;\n    margin: 0;\n}\n\n#wrapper{\n    width: 760px;\n    padding: 20px;\n    margin-top: 30px;\n    /* border: 1px solid black; */\n    background-color: lightgrey;\n}\n\n#search_txt{\n    width: 580px;\n    margin-left: 20px;\n    margin-right: 20px;\n}\n\n#listings{\n    width: 700px;\n    background-color: white;\n    margin-top: 30px;\n    padding: 30px;\n    overflow: scroll;\n    overflow-x: hidden;\n}\n\n#promotion{\n    width: 600px;\n    height: 120px;\n    border: 1px solid black;\n    padding: 20px;\n}\n\nh2{\n    margin-left: 40px;\n    color: blue;\n    margin-bottom: 10px;\n}\n\n#image_div{\n    width: 150px;\n    height: 110px;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    border: 1px solid black;\n    display: inline-block;\n}\n\n#middle{\n    width: 300px;\n    height: 110px;\n    display: inline-block;\n    vertical-align: top;\n    margin-left: 10px;\n}\n\n#right{\n    float: right;\n    margin-left: 10px;\n    margin-top: 10px;\n}", ""]);
 
 // exports
 
@@ -187,7 +189,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/browse/browse.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  browse works!\n</p>\n"
+module.exports = "<a [routerLink]=\"['/create']\">Browse</a> |\n<a [routerLink]=\"['/listings']\">My Listings</a> |\n<a [routerLink]=\"['/browse']\">Log off</a> \n\n<div id=\"wrapper\">\n  <div id=\"search\">\n    <form (submit)=\"searchListing()\">\n        Search: <input id=\"search_txt\" type=\"text\" name=\"search\" [(ngModel)]=\"search_string\">\n        <input type=\"submit\" value=\"Search\">\n    </form>\n    <div id=\"listings\">\n      <div id=\"promotion\" >\n        <img id=\"image_div\" src=\"\" alt=\"\">\n        <div id=\"middle\">\n          <h1>Title</h1>\n          <p id=\"content_div\">I'm selling this awesome Cannondale.</p>\n        </div>\n        <div id=\"right\">\n          <h1>$950</h1>\n          <span>Los Angeles, CA</span>\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>"
 
 /***/ }),
 
@@ -216,6 +218,7 @@ var BrowseComponent = /** @class */ (function () {
         this.currentUser = { email: "" };
     }
     BrowseComponent.prototype.ngOnInit = function () {
+        //Re-enable this before deploy
         var _this = this;
         this._httpService.getCurrentUser()
             .subscribe(function (responseData) {
@@ -229,6 +232,9 @@ var BrowseComponent = /** @class */ (function () {
                 console.log(_this.currentUser);
             }
         });
+    };
+    BrowseComponent.prototype.searchListing = function () {
+        console.log("Search button pressed!");
     };
     BrowseComponent = __decorate([
         core_1.Component({
@@ -253,7 +259,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "#wrapper{\n    width: 700px;\n    border: 1px solid black;\n    padding: 40px;\n}\n\n#image_div{\n    width: 150px;\n    height: 110px;\n    padding: 10px;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    /* border: 1px solid black; */\n    display: inline-block;\n}\n\n#middle{\n    width: 300px;\n    padding: 10px;\n    display: inline-block;\n    vertical-align: top;\n    /* border: 1px solid black; */\n    margin-left: 15px;\n}\n\n#right{\n    width: 145px;\n    padding: 10px;\n    float: right;\n    margin-left: 10px;\n    /* border: 1px solid black; */\n}\n\n#title_txt, #description_txt, #price_txt, #location_txt, #img_url{\n    margin: 5px 0px;\n}\n\n#create_btn{\n    float: right;\n    width: 165px;\n}\n\n#ptag{\n    color: red;\n}", ""]);
 
 // exports
 
@@ -266,7 +272,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/create/create.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  create works!\n</p>\n"
+module.exports = "<div id=\"wrapper\" >\n  <form (submit)=\"createListing()\">\n    <div id=\"image_div\">\n      <span>Image URL</span><br>\n      <input id=\"img_url\" type=\"text\" name=\"img\" [(ngModel)]=\"newListing.img_url\">\n    </div>\n    <div id=\"middle\">\n      <span>Title</span><br>\n      <input id=\"title_txt\" type=\"text\" name=\"title\" [(ngModel)]=\"newListing.title\"><br>\n      <span>Description</span><br>\n      <textarea id=\"description_txt\" name=\"description\" cols=\"43\" rows=\"3\" [(ngModel)]=\"newListing.description\"></textarea>\n    </div>\n    <div id=\"right\">\n      <span>Price</span><br>\n      <input id=\"price_txt\" type=\"text\" name=\"price\" [(ngModel)]=\"newListing.price\"><br>\n      <span>Location</span><br>\n      <input id=\"location_txt\" type=\"text\" name=\"location\" [(ngModel)]=\"newListing.location\"><br>\n    </div>\n    <input id=\"create_btn\" type=\"submit\" value=\"CREATE\">\n  </form>\n  <p id=\"ptag\" *ngFor=\"let error of errorMessages\">\n    {{error}}\n  </p>\n</div>"
 
 /***/ }),
 
@@ -286,10 +292,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var http_service_1 = __webpack_require__("../../../../../src/app/http.service.ts");
 var CreateComponent = /** @class */ (function () {
-    function CreateComponent() {
+    function CreateComponent(_httpService, _router) {
+        this._httpService = _httpService;
+        this._router = _router;
+        this.newListing = { title: "", description: "", price: "", location: "", img_url: "" };
+        this.errorMessages = [];
+        this.currentUser = { email: "" };
     }
     CreateComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._httpService.getCurrentUser()
+            .subscribe(function (responseData) {
+            console.log('responseData', responseData);
+            if (responseData.errors) {
+                _this._router.navigate(['']);
+                console.log(_this.currentUser);
+            }
+            else {
+                _this.currentUser = responseData;
+                console.log(_this.currentUser);
+            }
+        });
+    };
+    CreateComponent.prototype.createListing = function () {
+        var _this = this;
+        console.log("Create button clicked");
+        this._httpService.addListing(this.newListing)
+            .subscribe(function (responseData) {
+            _this.errorMessages = [];
+            if (responseData.errors) {
+                for (var key in responseData.errors) {
+                    _this.errorMessages.push(responseData.errors[key].message);
+                }
+            }
+            else {
+                console.log("Adding listing");
+                console.log(responseData);
+                _this._router.navigate(['browse']);
+            }
+        });
     };
     CreateComponent = __decorate([
         core_1.Component({
@@ -297,7 +341,7 @@ var CreateComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/create/create.component.html"),
             styles: [__webpack_require__("../../../../../src/app/create/create.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [http_service_1.HttpService, router_1.Router])
     ], CreateComponent);
     return CreateComponent;
 }());
@@ -395,6 +439,9 @@ var HttpService = /** @class */ (function () {
     HttpService.prototype.getCurrentUser = function () {
         return this._http.get('/api/users/current');
     };
+    HttpService.prototype.addListing = function (newListingObj) {
+        return this._http.post('/api/users/current/listings', newListingObj);
+    };
     HttpService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.HttpClient])
@@ -414,7 +461,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "*{\n    padding: 0;\n    margin: 0;\n}\n\n#wrapper{\n    width: 760px;\n    padding: 20px;\n    margin-top: 30px;\n    border: 1px solid black;\n}\n\n#login{\n    width: 200px;\n    border: 1px solid black;\n    padding: 30px;\n    margin-top: 30px;\n    margin-left: 20px;\n    display: inline-block;\n    vertical-align: top;\n}\n\n#register{\n    width: 380px;\n    border: 1px solid black;\n    padding: 20px;\n    margin-top: 30px;\n    margin-left: 30px;\n    display: inline-block;\n}\n\n#pw_con_txt, #pw_txt, #first_txt, #last_txt, #email_txt{\n    float: right;\n    /* margin: 8px; */\n}\n\n#login_btn{\n    width: 190px;\n    margin-top: 10px;\n}\n\n#submit_btn{\n    width: 380px;\n    margin-top: 10px;\n}\n\n#ptag{\n    color: red;\n}", ""]);
+exports.push([module.i, "*{\n    padding: 0;\n    margin: 0;\n}\n\n#wrapper{\n    width: 760px;\n    padding: 20px;\n    margin-top: 30px;\n    /* border: 1px solid black; */\n}\n\n#login{\n    width: 200px;\n    border: 1px solid black;\n    padding: 30px;\n    margin-top: 30px;\n    margin-left: 20px;\n    display: inline-block;\n    vertical-align: top;\n}\n\n#register{\n    width: 380px;\n    border: 1px solid black;\n    padding: 20px;\n    margin-top: 30px;\n    margin-left: 30px;\n    display: inline-block;\n}\n\n#pw_con_txt, #pw_txt, #first_txt, #last_txt, #email_txt{\n    float: right;\n    /* margin: 8px; */\n}\n\n#login_btn{\n    width: 190px;\n    margin-top: 10px;\n}\n\n#submit_btn{\n    width: 380px;\n    margin-top: 10px;\n}\n\n#ptag{\n    color: red;\n}\n\n#promotion{\n    margin-left: 40px;\n    width: 600px;\n    height: 120px;\n    border: 1px solid black;\n    padding: 20px;\n}\n\nh2{\n    margin-left: 40px;\n    color: blue;\n    margin-bottom: 10px;\n}\n\n#image_div{\n    width: 150px;\n    height: 110px;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    border: 1px solid black;\n    display: inline-block;\n}\n\n#middle{\n    width: 300px;\n    height: 110px;\n    display: inline-block;\n    vertical-align: top;\n    margin-left: 10px;\n}\n\n#right{\n    float: right;\n    margin-left: 10px;\n    margin-top: 10px;\n}\n\n", ""]);
 
 // exports
 
@@ -427,7 +474,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"wrapper\">\n  <div id=\"login\">\n    <form (submit)=\"login()\">\n      *Email: <input type=\"text\" name=\"email\" [(ngModel)]=\"user.email\"><br>\n      <input id=\"login_btn\" type=\"submit\" value=\"Login\">\n    </form>\n  </div>\n  <div id=\"register\">\n    <form (submit) = \"register()\">\n      <label for=\"first\">*First Name: </label>\n      <input id=\"first_txt\" type=\"text\" name=\"first\" [(ngModel)]=\"newUser.first\"><br>\n      <label for=\"last\">*Last Name: </label>\n      <input id=\"last_txt\" type=\"text\" name=\"last\" [(ngModel)]=\"newUser.last\"><br>\n      <label for=\"email\">*Email: </label>\n      <input id=\"email_txt\" type=\"text\" name=\"email\" [(ngModel)]=\"newUser.email\"><br>\n      <label for=\"password\">*Password: </label>\n      <input id=\"pw_txt\" type=\"text\" name=\"password\" [(ngModel)]=\"newUser.password\"><br>\n      <label for=\"pass_con\">*Password Confirmation: </label>\n      <input id=\"pw_con_txt\" type=\"text\" name=\"password_con\" [(ngModel)]=\"con_pass\"><br>\n      <input id=\"submit_btn\" type=\"submit\" value=\"Register\">\n    </form>\n  </div>\n\n  <p id=\"ptag\" *ngFor=\"let error of errorMessages\">\n    {{error}}\n  </p>\n</div>"
+module.exports = "<div id=\"wrapper\">\n  <h2>Bike of the day!</h2>\n  <div id=\"promotion\" >\n    <img id=\"image_div\" src=\"\" alt=\"\">\n    <div id=\"middle\">\n      <h1>Title</h1>\n      <p id=\"content_div\">I'm selling this awesome Cannondale.</p>\n    </div>\n    <div id=\"right\">\n      <h1>$950</h1>\n      <span>Los Angeles, CA</span>\n    </div>\n  </div>\n  <div id=\"login\">\n    <form (submit)=\"login()\">\n      *Email: <input type=\"text\" name=\"email\" [(ngModel)]=\"user.email\"><br>\n      <input id=\"login_btn\" type=\"submit\" value=\"Login\">\n    </form>\n  </div>\n  <div id=\"register\">\n    <form (submit) = \"register()\">\n      <label for=\"first\">*First Name: </label>\n      <input id=\"first_txt\" type=\"text\" name=\"first\" [(ngModel)]=\"newUser.first\"><br>\n      <label for=\"last\">*Last Name: </label>\n      <input id=\"last_txt\" type=\"text\" name=\"last\" [(ngModel)]=\"newUser.last\"><br>\n      <label for=\"email\">*Email: </label>\n      <input id=\"email_txt\" type=\"text\" name=\"email\" [(ngModel)]=\"newUser.email\"><br>\n      <label for=\"password\">*Password: </label>\n      <input id=\"pw_txt\" type=\"text\" name=\"password\" [(ngModel)]=\"newUser.password\"><br>\n      <label for=\"pass_con\">*Password Confirmation: </label>\n      <input id=\"pw_con_txt\" type=\"text\" name=\"password_con\" [(ngModel)]=\"con_pass\"><br>\n      <input id=\"submit_btn\" type=\"submit\" value=\"Register\">\n    </form>\n  </div>\n\n  <p id=\"ptag\" *ngFor=\"let error of errorMessages\">\n    {{error}}\n  </p>\n</div>"
 
 /***/ }),
 
@@ -506,7 +553,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "*{\n    padding: 0;\n    margin: 0;\n}\n\n#wrapper{\n    width: 760px;\n    padding: 20px;\n    margin-top: 30px;\n    /* border: 1px solid black; */\n    background-color: lightgrey;\n}\n\n#listings{\n    width: 700px;\n    background-color: white;\n    margin-top: 30px;\n    padding: 30px;\n    overflow: scroll;\n    overflow-x: hidden;\n}\n\n#promotion{\n    width: 600px;\n    height: 120px;\n    border: 1px solid black;\n    padding: 20px;\n}\n\nh2{\n    margin-left: 40px;\n    color: blue;\n    margin-bottom: 10px;\n}\n\n#image_div{\n    width: 150px;\n    height: 110px;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    border: 1px solid black;\n    display: inline-block;\n}\n\n#middle{\n    width: 300px;\n    height: 110px;\n    display: inline-block;\n    vertical-align: top;\n    margin-left: 10px;\n}\n\n#right{\n    float: right;\n    margin-left: 10px;\n    margin-top: 10px;\n}", ""]);
 
 // exports
 
@@ -519,7 +566,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/mylist/mylist.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  mylist works!\n</p>\n"
+module.exports = "<a [routerLink]=\"['/browse']\">Browse</a> |\n<a [routerLink]=\"['/listings']\">My Listings</a> |\n<a [routerLink]=\"['/browse']\">Log off</a> \n\n<div id=\"wrapper\">\n  <div id=\"search\">\n    <form (submit)=\"searchListing()\">\n        Search: <input id=\"search_txt\" type=\"text\" name=\"search\" [(ngModel)]=\"search_string\">\n        <input type=\"submit\" value=\"Search\">\n    </form>\n    <div id=\"listings\">\n      <div id=\"promotion\" >\n          <img id=\"image_div\" src=\"\" alt=\"\">\n          <div id=\"middle\">\n            <h1>Title</h1>\n            <p id=\"content_div\">I'm selling this awesome Cannondale.</p>\n          </div>\n          <div id=\"right\">\n            <h1>$950</h1>\n            <span>Los Angeles, CA</span>\n          </div>\n        </div>\n    </div>\n  </div>\n\n</div>"
 
 /***/ }),
 

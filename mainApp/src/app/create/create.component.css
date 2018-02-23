@@ -1,0 +1,44 @@
+#wrapper{
+    width: 700px;
+    border: 1px solid black;
+    padding: 40px;
+}
+
+#image_div{
+    width: 150px;
+    height: 110px;
+    padding: 10px;
+    align-items: center;
+    /* border: 1px solid black; */
+    display: inline-block;
+}
+
+#middle{
+    width: 300px;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+    /* border: 1px solid black; */
+    margin-left: 15px;
+}
+
+#right{
+    width: 145px;
+    padding: 10px;
+    float: right;
+    margin-left: 10px;
+    /* border: 1px solid black; */
+}
+
+#title_txt, #description_txt, #price_txt, #location_txt, #img_url{
+    margin: 5px 0px;
+}
+
+#create_btn{
+    float: right;
+    width: 165px;
+}
+
+#ptag{
+    color: red;
+}

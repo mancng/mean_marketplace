@@ -14,6 +14,9 @@ export class BrowseComponent implements OnInit {
   constructor(private _httpService: HttpService, private _router: Router) { }
 
   ngOnInit() {
+
+    //Re-enable this before deploy
+
     this._httpService.getCurrentUser()
     .subscribe((responseData: any)=>{
       console.log('responseData', responseData)
@@ -25,6 +28,10 @@ export class BrowseComponent implements OnInit {
         console.log(this.currentUser)
       }
     })
+  }
+
+  searchListing(){
+    console.log("Search button pressed!")
   }
   
 

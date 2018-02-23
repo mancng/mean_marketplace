@@ -15,5 +15,9 @@ export class HttpService {
     return this._http.get('/api/users/current')
   }
 
+  addListing(newListingObj){
+    return this._http.post('/api/users/current/listings', newListingObj)
+  }
+
 }
 
